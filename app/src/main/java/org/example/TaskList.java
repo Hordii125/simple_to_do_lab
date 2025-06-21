@@ -25,6 +25,15 @@ public class TaskList {
         }
     }
 
+    public void markTaskComplete(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).markAsCompleted();
+            System.out.println("Task marked as completed.");
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
     public String displayAll() {
         if (tasks.isEmpty()) {
             return "No tasks available.";
