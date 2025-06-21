@@ -2,90 +2,56 @@ package org.example;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks; // Array to hold tasks
-    private int taskCount; // Number of tasks currently in the list
+    private ArrayList<Task> tasks;
 
-    // Constructor to initialize the task list
     public TaskList() {
         tasks = new ArrayList<>();
-        taskCount = 0; // Initialize task count to zero
     }
 
-    // Method to add a task to the list
-    public void addTask(Task task) { 
-        if (task != null && !task.getDescription().isEmpty()) { // Check if the task is not null and has a description
-            tasks.add(task); // Add the task to the list
-            taskCount++; // Increase the task count
+    public void addTask(Task task) {
+        if (task != null && !task.getDescription().isEmpty()) {
+            tasks.add(task);
         } else {
-            System.out.println("Cannot add a null task.");
+            System.out.println("Cannot add an empty task.");
         }
     }
 
-    // Metghod to display all tasks in the list
+    public void removeTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.remove(index);
+            System.out.println("Task removed.");
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
+    public void markTaskComplete(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.get(index).markAsCompleted();
+            System.out.println("Task marked as completed.");
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+
     public String displayAll() {
-        String taskListString = ""; // String to hold the task list
-        if (taskCount == 0) {
-            return "No tasks available."; // Return message if no tasks are present
+        if (tasks.isEmpty()) {
+            return "No tasks available.";
         }
-        for (int i = 0; i < taskCount; i++) {
-            Task task = tasks.get(i); // Get the task at index i
-            taskListString += (i + 1) + ": " + task.displayTString() + "\n"; // Append the task to the string
-        }
-        return taskListString; // Return the complete task list string
-    }
 
-    // Method to clear all tasks from the list
-    public void clearTasks() {
-        tasks = new ArrayList<>(); // Reset the task list
-        taskCount = 0; // Reset the task count
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(": ").append(tasks.get(i).displayTString()).append("\n");
+        }
+        return sb.toString();
     }
 
     public int getTaskCount() {
-        return taskCount; // Return the current number of tasks
+        return tasks.size();
     }
 
-    public Task getTask(int index) {
-        if (index >= 0 && index < taskCount) {
-            return tasks.get(index); // Return the task at the specified index
-        } else {
-            System.out.println("Invalid task index.");
-            return null; // Return null if the index is invalid
-        }
-    }
-
-    // Method to display completed tasks
-    public void completedTasks () {
-        String completedTasksString = ""; // String to hold completed tasks
-
-        if (taskCount == 0) {
-            System.out.println("No tasks available."); // Print message if no tasks are present
-            return; // Exit the method if there are no tasks
-        }
-
-        for (int i = 0; i < taskCount; i++) {
-            Task task = tasks.get(i); // Get the task at index i
-            if (task.isCompleted()) { // Check if the task is completed
-                completedTasksString += task.displayTString() + "\n"; // Append the completed task to the string
-            }
-        }
-        System.out.println(completedTasksString.toString()); // Print the completed tasks
-    }
-
-    // Method to display incompleted tasks
-    public void incompletedTasks() {
-        String incompleteTasksString = ""; // String to hold incomplete tasks
-
-        if (taskCount == 0) {
-            System.out.println("No tasks available."); // Print message if no tasks are present
-            return; // Exit the method if there are no tasks
-        }
-
-        for (int i = 0; i < taskCount; i++) {
-            Task task = tasks.get(i); // Get the task at index i
-            if (!task.isCompleted()) { // Check if the task is not completed
-                incompleteTasksString += task.displayTString() + "\n"; // Append the incomplete task to the string
-            }
-        }
-        System.out.println(incompleteTasksString.toString()); // Print the incomplete tasks
+    public void clearTasks() {
+        tasks.clear();
+        System.out.println("All tasks cleared.");
     }
 }
