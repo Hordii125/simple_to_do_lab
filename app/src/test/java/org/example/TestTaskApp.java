@@ -11,7 +11,7 @@ public class TestTaskApp {
         TaskList taskList = new TaskList();
         Task task = new Task("Test task");
         taskList.addTask(task);
-        assert taskList.getTaskCount() == 1 : "Task count should be 1 after adding a task";
+        assert taskList.getTaskCount() == 1;
     }
 
     @Test
@@ -34,7 +34,7 @@ public class TestTaskApp {
         Task task1 = new Task("Task 1");
         taskList.addTask(task1);
         taskList.clearTasks();
-        assert taskList.getTaskCount() == 0 : "Task count should be 0 after clearing tasks";
+        assert taskList.getTaskCount() == 0;
     }
 
     @Test
